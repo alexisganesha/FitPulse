@@ -8,44 +8,22 @@ def get_subscription():
                 users = cursor.fetchall()
                 return users    
             
-def create_user(email, last_name, role):
+def create_subscription(type, prix, duree):
     with Database().connection.cursor() as cursor:
         cursor.execute("""
-                       INSERT INTO users(email, last_name, role)
+                       INSERT INTO subscription(type, prix, duree)
                        VALUES (%s,%s,%s)
                        RETURNING id
                        """,
-                       (email,last_name,role)
+                       (type, prix, duree)
                        )
-        user_id = cursor.fetchone()[0]
-        return user_id
+        subscription_id = cursor.fetchone()[0]
+        return subscription_id
 
-def delete_user():
+def delete_subscription(id):
     with Database().connection.cursor() as cursor:
-        cursor.execute("DELETE FROM users WHERE id = %s",(id,))
+        cursor.execute("DELETE FROM subscription WHERE id = %s",(id,))
         rows_count = cursor.rowcount
         return rows_count
     
-     
-def get_users_manual():
-    try:
-        conn = None
-        conn = Database().connection
-        cursor = conn.cursor()
-        cursor.execute("SELECT * FROM users")
-        users = cursor.fetchall()
-                #return users    
-        conn.commit()        
-    except Error as e:
-        
-        if conn is not None:
-        #SI pas d'erreurs
-            conn.rollback()
-    else:
-
-        return users
-    finally:
-        print("finally")
-        if cursor is not None:
-            conn.close()    
                 

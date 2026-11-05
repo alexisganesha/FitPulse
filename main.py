@@ -1,7 +1,7 @@
 import os
 
 from repository.users_repository import get_users, create_user, delete_user, get_users_manual
-from repository.subscription_repository import get_subscription
+from repository.subscription_repository import get_subscription, create_subscription, delete_subscription
 from db.db import Database
 
 class bcolors:
@@ -31,6 +31,8 @@ if __name__ == "__main__":
             print(f"{"(2) Create user":<30}")
             print(f"{"(3) Delete user":<30}")
             print(f"{"(4) Get all subscription":<30}")
+            print(f"{"(5) Create subscription":<30}")
+            print(f"{"(6) Delete subscription":<30}")
             print(f"{"(Q) Quit":<30}")
             print()
             #getint / getstr
@@ -72,6 +74,23 @@ if __name__ == "__main__":
                         print(v)
                     print("-----------------------")
                     input(">")      
+                
+                case "5":
+                    type=input("Entrez le type :")
+                    price=input("Entre le prix :")
+                    duree=input("Entre la durée en semaine :")
+                    id=create_subscription(type, price, duree)
+                    print(f"The new subscription has already been created {id}")              
+                    input(">")  
+                case "6":
+                    print("-----------------------")
+                    for v in get_subscription():
+                        print(v)
+                    print("-----------------------")
+                    id = input("Entrez l'id de la subscription à supprimer : ")
+                    rows_count = delete_subscription(id)
+                    print(f"{rows_count} lignes modifié")
+                    input(">")                          
                                         
                 case "q":
                     continue_app = False
