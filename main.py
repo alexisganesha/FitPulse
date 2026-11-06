@@ -1,4 +1,5 @@
 import os
+import re
 
 from repository.users_repository import get_coach,get_users, create_user, delete_user
 from repository.subscription_repository import get_subscription, create_subscription, delete_subscription
@@ -90,31 +91,42 @@ if __name__ == "__main__":
             
             match choice.lower():
                 case "1":
-                    colonnes_users = ["ID", "Email", "Firstname", "Abonnement", "Rôle"]
+                    colonnes_users = ["ID", "Email", "Firstname", "Subscription", "Role"]
                     donnee_users = get_users()
                     afficher_table_generique(colonnes_users, donnee_users)                    
                     input(">")      
                 case "2":
-                    email=input("Entrez l'email :")
-                    last_name=input("Entre le nom :")
-                    lerole=input("Entre le rôle :")
-                    id=create_user(email,last_name,lerole)
-                    print(f"l'utilisateur a bien été créé avec l'id {id}")              
+                    
+                    while True:
+                        email=input("Enter email:")
+                        pattern = r"^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$"
+                        if re.match(pattern,email):
+                            break
+                        else:
+                            print("Incorrect email")
+                    
+                    
+                    last_name=input("Enter name:")
+                    lerole=input("Enter role:")                
+                    colonnes_subscription = ["ID", "Type", "Price", "Weeks"]
+                    donnee_subscription = get_subscription()
+                    afficher_table_generique(colonnes_subscription, donnee_subscription)                      
+                    abo=input("Type d'abonnement (ID):")
+                    id=create_user(email,last_name,lerole,abo)
+                    print(f"User has been created with ID: {id}")              
                     input(">")      
                     
                 case "3":
-                    print("-----------------------")
-                    colonnes_users = ["ID", "Email", "Firstname", "Abonnement"]
+                    colonnes_users = ["ID", "Email", "Firstname", "Subscription", "Role"]
                     donnee_users = get_users()
                     afficher_table_generique(colonnes_users, donnee_users)   
-                    print("-----------------------")
-                    id = input("Entrez l'id de l'utilisateur à supprimer : ")
+                    id = input("User to delete, give the ID > ")
                     rows_count = delete_user(id)
-                    print(f"{rows_count} lignes modifié")
+                    print(f"{rows_count} row(s) deleted")
                     input(">")      
                     
                 case "4":
-                    colonnes_subscription = ["ID", "Type", "Prix", "Durée (en semaines)"]
+                    colonnes_subscription = ["ID", "Type", "Price", "Weeks"]
                     donnee_subscription = get_subscription()
                     afficher_table_generique(colonnes_subscription, donnee_subscription)                       
                     input(">")      
@@ -127,7 +139,7 @@ if __name__ == "__main__":
                     print(f"The new subscription has already been created {id}")              
                     input(">")  
                 case "6":
-                    colonnes_subscription = ["ID", "Type", "Prix", "Durée (en semaines)"]
+                    colonnes_subscription = ["ID", "Type", "Price", "Weeks"]
                     donnee_subscription = get_subscription()
                     afficher_table_generique(colonnes_subscription, donnee_subscription)                               
                     print("-----------------------")
@@ -137,19 +149,19 @@ if __name__ == "__main__":
                     input(">")
                     
                 case "7":
-                    colonnes_training = ["ID", "description", "hour_start", "hour_end", "day", "user_id"]
+                    colonnes_training = ["ID", "Description", "Start Hour", "End Hour", "Day", "Last Name"]
                     donnee_training = get_training()
                     afficher_table_generique(colonnes_training, donnee_training)           
                     input(">")          
                     
                 case "71":
-                    colonnes_coach = ["ID", "email", "last name"]
+                    colonnes_coach = ["ID", "Email", "Last Name"]
                     donnee_coach = get_coach()
                     afficher_table_generique(colonnes_coach, donnee_coach)  
                     input(">")                       
                     
                 case "8":                    
-                    colonnes_coach = ["ID", "email", "last name"]
+                    colonnes_coach = ["ID", "Email", "Last Name"]
                     donnee_coach = get_coach()
                     afficher_table_generique(colonnes_coach, donnee_coach)  
                     print("-----------------------")
@@ -167,7 +179,7 @@ if __name__ == "__main__":
                     input(">") 
                     
                 case "9":
-                    colonnes_training = ["ID", "description", "hour_start", "hour_end", "day", "user_id"]
+                    colonnes_training = ["ID", "Description", "Start Hour", "End Hour", "Day", "Last Name"]
                     donnee_training = get_training()
                     afficher_table_generique(colonnes_training, donnee_training)   
                     print("-----------------------")

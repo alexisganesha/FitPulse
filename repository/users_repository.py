@@ -13,25 +13,25 @@ def get_coach():
 
 def get_users():
         with Database().connection.cursor() as cursor:
-                cursor.execute("SELECT u.id, u.email, u.last_name, s.type, u.role FROM users u INNER JOIN subscription s ON s.ID = u.abo")
+                cursor.execute("SELECT u.id, u.email, u.last_name, s.type, u.role FROM users u LEFT JOIN subscription s ON s.ID = u.abo")
                 users = cursor.fetchall()
                 return users    
             
-def create_user(email, last_name, role):
+def create_user(email, last_name, role, abo):
     with Database().connection.cursor() as cursor:
         cursor.execute("""
-                       INSERT INTO users(email, last_name, role)
-                       VALUES (%s,%s,%s)
+                       INSERT INTO users(email, last_name, role, abo)
+                       VALUES (%s,%s,%s,%s)
                        RETURNING id
                        """,
-                       (email,last_name,role)
+                       (email,last_name,role,abo)
                        )
         user_id = cursor.fetchone()[0]
         return user_id
 
-def delete_user():
+def delete_user(id):
     with Database().connection.cursor() as cursor:
-        cursor.execute("DELETE FROM users WHERE id = %s",(id,))
+        cursor.execute("DELETE FROM users WHERE id = %s", (id,))
         rows_count = cursor.rowcount
         return rows_count
     
