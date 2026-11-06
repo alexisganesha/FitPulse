@@ -13,7 +13,7 @@ def get_coach():
 
 def get_users():
         with Database().connection.cursor() as cursor:
-                cursor.execute("SELECT u.id, u.email, u.last_name, s.type FROM users u INNER JOIN subscription s ON s.ID = u.abo")
+                cursor.execute("SELECT u.id, u.email, u.last_name, s.type, u.role FROM users u INNER JOIN subscription s ON s.ID = u.abo")
                 users = cursor.fetchall()
                 return users    
             

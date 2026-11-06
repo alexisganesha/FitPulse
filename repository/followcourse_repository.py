@@ -7,7 +7,18 @@ def get_followcourse():
                 cursor.execute("""
                                 SELECT u.last_name as "Nom",
                                        t.description as "Cours suivi",
-                                       t.hour_start As "Début"
+                                       t.hour_start As "Début",
+                                       t.hour_end As "Fin",
+                                       case t.day 
+                                          WHEN 1 THEN 'Monday'
+                                          WHEN 2 THEN 'Tuesday'
+                                          WHEN 3 THEN 'Wednesday'
+                                          WHEN 4 THEN 'Thursday'
+                                          WHEN 5 THEN 'Friday'
+                                          WHEN 6 THEN 'Saturday'
+                                          WHEN 7 THEN 'Sunday'
+                                          ELSE 'Inconnu'
+                                       END AS "day"
                                        FROM followcourse fc
                                        INNER JOIN users u ON fc.user_id = u.id
                                        INNER JOIN training t ON fc.training_id = t.id                               

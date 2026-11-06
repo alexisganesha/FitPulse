@@ -4,7 +4,26 @@ from db.db import Database
 
 def get_training():
         with Database().connection.cursor() as cursor:
-                cursor.execute("SELECT * FROM training")
+                cursor.execute("""
+                                SELECT 
+                                    tr.id,
+                                    tr.description,
+                                    tr.hour_start,
+                                    tr.hour_end,
+                                    CASE day 
+                                          WHEN 1 THEN 'Monday'
+                                          WHEN 2 THEN 'Tuesday'
+                                          WHEN 3 THEN 'Wednesday'
+                                          WHEN 4 THEN 'Thursday'
+                                          WHEN 5 THEN 'Friday'
+                                          WHEN 6 THEN 'Saturday'
+                                          WHEN 7 THEN 'Sunday'
+                                          ELSE 'Inconnu'
+                                    END AS "day",
+                                    u.last_name                                
+                                FROM training tr
+                                INNER JOIN users u on u.id = tr.user_id                               
+                               """)
                 users = cursor.fetchall()
                 return users    
             

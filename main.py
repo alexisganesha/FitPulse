@@ -79,6 +79,7 @@ if __name__ == "__main__":
             print(f"{"(5) Create subscription":<30}")
             print(f"{"(6) Delete subscription":<30}")
             print(f"{"(7) Course training":<30}")
+            print(f"{"(71) List Coach":<30}")
             print(f"{"(8) Create Course training":<30}")
             print(f"{"(9) Delete Course training":<30}")
             print(f"{"(10) get all follow course":<30}")
@@ -89,7 +90,7 @@ if __name__ == "__main__":
             
             match choice.lower():
                 case "1":
-                    colonnes_users = ["ID", "Email", "Firstname", "Abonnement"]
+                    colonnes_users = ["ID", "Email", "Firstname", "Abonnement", "Rôle"]
                     donnee_users = get_users()
                     afficher_table_generique(colonnes_users, donnee_users)                    
                     input(">")      
@@ -141,9 +142,16 @@ if __name__ == "__main__":
                     afficher_table_generique(colonnes_training, donnee_training)           
                     input(">")          
                     
-                case "8":
-                    for v in get_coach():
-                        print(v)
+                case "71":
+                    colonnes_coach = ["ID", "email", "last name"]
+                    donnee_coach = get_coach()
+                    afficher_table_generique(colonnes_coach, donnee_coach)  
+                    input(">")                       
+                    
+                case "8":                    
+                    colonnes_coach = ["ID", "email", "last name"]
+                    donnee_coach = get_coach()
+                    afficher_table_generique(colonnes_coach, donnee_coach)  
                     print("-----------------------")
                     coach = input("Coach choisi ID: > ")
                     description=input("Entrez la description :")
@@ -159,9 +167,9 @@ if __name__ == "__main__":
                     input(">") 
                     
                 case "9":
-                    print("-----------------------")
-                    for v in get_training():
-                        print(v)
+                    colonnes_training = ["ID", "description", "hour_start", "hour_end", "day", "user_id"]
+                    donnee_training = get_training()
+                    afficher_table_generique(colonnes_training, donnee_training)   
                     print("-----------------------")
                     id = input("Entrez l'id de la subscription à supprimer : ")
                     rows_count = delete_training(id)
@@ -169,9 +177,9 @@ if __name__ == "__main__":
                     input(">")     
                     
                 case "10":
-                    for v in get_followcourse():
-                        print(v)
-                    print("-----------------------")
+                    colonnes_followcourse = ["Nom", "Cours suivi", "hour_start", "hour_end", "day"]
+                    donnee_followcourse = get_followcourse()
+                    afficher_table_generique(colonnes_followcourse, donnee_followcourse)   
                     input(">")                                                                
                                     
                                         
