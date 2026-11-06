@@ -44,4 +44,3 @@ def delete_followcourse(id):
         rows_count = cursor.rowcount
         return rows_count
     
-                

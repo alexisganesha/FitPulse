@@ -132,9 +132,9 @@ if __name__ == "__main__":
                     input(">")      
                 
                 case "5":
-                    type=input("Entrez le type :")
-                    price=input("Entre le prix :")
-                    duree=input("Entre la durée en semaine :")
+                    type=input("Enter Type :")
+                    price=input("Enter Price :")
+                    duree=input("Enter #Week :")
                     id=create_subscription(type, price, duree)
                     print(f"The new subscription has already been created {id}")              
                     input(">")  
@@ -165,14 +165,14 @@ if __name__ == "__main__":
                     donnee_coach = get_coach()
                     afficher_table_generique(colonnes_coach, donnee_coach)  
                     print("-----------------------")
-                    coach = input("Coach choisi ID: > ")
-                    description=input("Entrez la description :")
-                    hour_start=input("Entre l'heure de départ :").zfill(2)                                   
+                    coach = input("Coach selected ID: > ")
+                    description=input("Enter description :")
+                    hour_start=input("Enter start hour :").zfill(2)                                   
                     min_start=input("Entre les min de départ :").zfill(2)                                   
                     hour_end=input("Entre l'heure de fin :").zfill(2)                                   
                     min_end=input("Entre les min de fin :").zfill(2)                                   
                     
-                    day=input("Entre la journée (0: dimanche,...) :")
+                    day=input("Enter the day (0: Sunday,...) :")
                     input(">")                 
                     id=create_training(description, hour_start+':'+min_start, hour_end+':'+min_end, day, coach)
                     print(f"The new subscription has already been created {id}")              
@@ -189,7 +189,7 @@ if __name__ == "__main__":
                     input(">")     
                     
                 case "10":
-                    colonnes_followcourse = ["Nom", "Cours suivi", "hour_start", "hour_end", "day"]
+                    colonnes_followcourse = ["Nom", "Course Taken", "Start", "End", "Day"]
                     donnee_followcourse = get_followcourse()
                     afficher_table_generique(colonnes_followcourse, donnee_followcourse)   
                     input(">")                                                                

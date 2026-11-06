@@ -70,10 +70,9 @@ ALTER TABLE public.followcourse OWNER to postgres;
 
 -- 3. INSERT INTO DATA
 INSERT INTO public.subscription (id, type, prix, duree) VALUES
-(1, 'ultimate', '34.99'::numeric::money, 56),
-(2, 'premium', '29.99'::numeric::money, 46),
-(3, 'comfort', '24.99'::numeric::money, 46),
-(5, 'eaezaez', '26.00'::numeric::money, 10);
+(1, 'ultimate', '34.99'::numeric::money, 52),
+(2, 'premium', '29.99'::numeric::money, 52),
+(3, 'comfort', '24.99'::numeric::money, 52);
 
 INSERT INTO public.users (id, email, last_name, role, abo) VALUES
 (1, 'alexis@fitpulse.com', 'Alexis', 'admin', 1),
