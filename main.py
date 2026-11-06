@@ -4,7 +4,7 @@ import re
 from repository.users_repository import get_coach,get_users, create_user, delete_user
 from repository.subscription_repository import get_subscription, create_subscription, delete_subscription
 from repository.training_repository import get_training, create_training, delete_training
-from repository.followcourse_repository import get_followcourse
+from repository.followcourse_repository import get_followcourse, create_followcourse
 from db.db import Database
 from tkinter import *
 from tkinter import ttk
@@ -88,7 +88,12 @@ if __name__ == "__main__":
     
 
     while continue_app:
-            os.system('cls')
+            os.system('cls')            
+            print("""
+                        o__         __o        ,__o        __o           __o
+                        ,>/_       -\<,      _-\_<,       _`\<,_       _ \<_
+                        (*)`(*).....O/ O.....(*)/'(*).....(*)/ (*).....(_)/(_)                                                    
+                  """)
             print(f"Welcome to {bcolors.OKCYAN}Super Fitness 🏋️")  
             print()  
             print(f"{bcolors.HEADER}{"(1) Get all users":<30}")
@@ -102,6 +107,7 @@ if __name__ == "__main__":
             print(f"{"(8) Create Course training":<30}")
             print(f"{"(9) Delete Course training":<30}")
             print(f"{"(10) get all follow course":<30}")
+            print(f"{"(11) Create follow course":<30}")
             print(f"{"(Q) Quit":<30}")
             print()
             #getint / getstr
@@ -111,6 +117,13 @@ if __name__ == "__main__":
                 case "1":
                     colonnes_users = ["ID", "Email", "Firstname", "Subscription", "Role"]
                     donnee_users = get_users()
+                    print("""
+|-----------------------------------------------------------------------|
+|    o   \ o /  _ o         __|    \ /     |__        o _  \ o /   o    |
+|   /|\    |     /\   ___\o   \o    |    o/    o/__   /\     |    /|\   |
+|   / \   / \   | \  /)  |    ( \  /o\  / )    |  (\  / |   / \   / \   |
+|-----------------------------------------------------------------------|
+                          """)
                     afficher_table_generique(colonnes_users, donnee_users)                    
                     input(">")      
                 case "2":
@@ -210,7 +223,21 @@ if __name__ == "__main__":
                     colonnes_followcourse = ["Nom", "Course Taken", "Start", "End", "Day"]
                     donnee_followcourse = get_followcourse()
                     afficher_table_generique(colonnes_followcourse, donnee_followcourse)   
-                    input(">")                                                                
+                    input(">")      
+                    
+                case "11":
+                    colonnes_users = ["ID", "Email", "Firstname", "Subscription", "Role"]
+                    donnee_users = get_users()
+                    afficher_table_generique(colonnes_users, donnee_users)   
+                    user_id = input("User to select, give the ID > ")
+                    colonnes_training = ["ID", "Description", "Start Hour", "End Hour", "Day", "Last Name"]
+                    donnee_training = get_training()
+                    afficher_table_generique(colonnes_training, donnee_training) 
+                    course_id = input("Course to select, give the ID > ")
+
+                    rows_count = create_followcourse(user_id, course_id)
+                    print(f"{rows_count} lignes modifié")
+                    input(">")                                                                                         
                                     
                                         
                 case "q":

@@ -26,17 +26,17 @@ def get_followcourse():
                 users = cursor.fetchall()
                 return users    
             
-def create_followcourse(type, prix, duree):
+def create_followcourse(user_id, training_id):
     with Database().connection.cursor() as cursor:
         cursor.execute("""
-                       INSERT INTO subscription(type, prix, duree)
-                       VALUES (%s,%s,%s)
-                       RETURNING id
+                       INSERT INTO followcourse(user_id, training_id)
+                       VALUES (%s,%s)         
                        """,
-                       (type, prix, duree)
+                       (user_id, training_id)
                        )
-        subscription_id = cursor.fetchone()[0]
-        return subscription_id
+        #followcourse_id = cursor.fetchone()[0]
+        rows_count = cursor.rowcount
+        return rows_count
 
 def delete_followcourse(id):
     with Database().connection.cursor() as cursor:
