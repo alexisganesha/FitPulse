@@ -1,7 +1,8 @@
 import os
 
-from repository.users_repository import get_users, create_user, delete_user, get_users_manual
+from repository.users_repository import get_coach,get_users, create_user, delete_user
 from repository.subscription_repository import get_subscription, create_subscription, delete_subscription
+from repository.training_repository import get_training, create_training, delete_training
 from db.db import Database
 
 class bcolors:
@@ -33,6 +34,9 @@ if __name__ == "__main__":
             print(f"{"(4) Get all subscription":<30}")
             print(f"{"(5) Create subscription":<30}")
             print(f"{"(6) Delete subscription":<30}")
+            print(f"{"(7) Course training":<30}")
+            print(f"{"(8) Create Course training":<30}")
+            print(f"{"(9) Delete Course training":<30}")
             print(f"{"(Q) Quit":<30}")
             print()
             #getint / getstr
@@ -90,7 +94,41 @@ if __name__ == "__main__":
                     id = input("Entrez l'id de la subscription à supprimer : ")
                     rows_count = delete_subscription(id)
                     print(f"{rows_count} lignes modifié")
-                    input(">")                          
+                    input(">")
+                    
+                case "7":
+                    for v in get_training():
+                        print(v)
+                    print("-----------------------")
+                    input(">")          
+                    
+                case "8":
+                    for v in get_coach():
+                        print(v)
+                    print("-----------------------")
+                    coach = input("Coach choisi ID: > ")
+                    description=input("Entrez la description :")
+                    hour_start=input("Entre l'heure de départ :").zfill(2)                                   
+                    min_start=input("Entre les min de départ :").zfill(2)                                   
+                    hour_end=input("Entre l'heure de fin :").zfill(2)                                   
+                    min_end=input("Entre les min de fin :").zfill(2)                                   
+                    
+                    day=input("Entre la journée (0: dimanche,...) :")
+                    input(">")                 
+                    id=create_training(description, hour_start+':'+min_start, hour_end+':'+min_end, day, coach)
+                    print(f"The new subscription has already been created {id}")              
+                    input(">") 
+                    
+                case "9":
+                    print("-----------------------")
+                    for v in get_training():
+                        print(v)
+                    print("-----------------------")
+                    id = input("Entrez l'id de la subscription à supprimer : ")
+                    rows_count = delete_training(id)
+                    print(f"{rows_count} lignes modifié")
+                    input(">")                    
+                                    
                                         
                 case "q":
                     continue_app = False

@@ -4,6 +4,13 @@ from psycopg import Error
 from db import db
 from db.db import Database
 
+
+def get_coach():
+        with Database().connection.cursor() as cursor:
+                cursor.execute("SELECT u.id, u.email, u.last_name FROM users u WHERE role='trainer'")
+                users = cursor.fetchall()
+                return users    
+
 def get_users():
         with Database().connection.cursor() as cursor:
                 cursor.execute("SELECT u.id, u.email, u.last_name, s.type FROM users u INNER JOIN subscription s ON s.ID = u.abo")
