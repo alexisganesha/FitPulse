@@ -6,6 +6,9 @@ from repository.subscription_repository import get_subscription, create_subscrip
 from repository.training_repository import get_training, create_training, delete_training
 from repository.followcourse_repository import get_followcourse
 from db.db import Database
+from tkinter import *
+from tkinter import ttk
+from tktable import Table
 
 class bcolors:
     HEADER = '\033[95m'
@@ -65,6 +68,21 @@ def afficher_table_generique(headers, lignes):
     
 
 if __name__ == "__main__":
+    root = Tk()
+    root.title("Super Fitness 🏋️")
+    root.geometry("800x600")
+    frm = ttk.Frame(root, padding=10)
+    frm.grid()
+    ttk.Label(frm, text="Super Fitness 🏋️").grid(column=0, row=0)
+    ttk.Button(frm, text="Quit", command=root.destroy).grid(column=1, row=0)
+    ttk.Label(frm, text="Welcome to Super Fitness!").grid(column=0, row=1)
+    
+    
+    table_headers = ("Name", "Age", "Email")
+    mytable = Table(frm, table_headers, col_width=150, headings_bold=True).grid(column=1, row=3)
+    #mytable.pack(pady=100)
+    root.mainloop()
+    
     continue_app = True
     db = Database()
     
