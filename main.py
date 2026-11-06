@@ -3,6 +3,7 @@ import os
 from repository.users_repository import get_coach,get_users, create_user, delete_user
 from repository.subscription_repository import get_subscription, create_subscription, delete_subscription
 from repository.training_repository import get_training, create_training, delete_training
+from repository.followcourse_repository import get_followcourse
 from db.db import Database
 
 class bcolors:
@@ -37,6 +38,7 @@ if __name__ == "__main__":
             print(f"{"(7) Course training":<30}")
             print(f"{"(8) Create Course training":<30}")
             print(f"{"(9) Delete Course training":<30}")
+            print(f"{"(10) get all follow course":<30}")
             print(f"{"(Q) Quit":<30}")
             print()
             #getint / getstr
@@ -127,7 +129,13 @@ if __name__ == "__main__":
                     id = input("Entrez l'id de la subscription à supprimer : ")
                     rows_count = delete_training(id)
                     print(f"{rows_count} lignes modifié")
-                    input(">")                    
+                    input(">")     
+                    
+                case "10":
+                    for v in get_followcourse():
+                        print(v)
+                    print("-----------------------")
+                    input(">")                                                                
                                     
                                         
                 case "q":
