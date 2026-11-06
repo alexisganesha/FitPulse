@@ -18,6 +18,49 @@ class bcolors:
     UNDERLINE = '\033[4m'
     WHITE = '\033[37m'
     RESET = '\033[0m'
+
+
+def afficher_table_generique(headers, lignes):
+    """
+    Affiche n'importe quelle table SQL de manière propre et alignée.
+    
+    :param headers: Liste des noms de colonnes (ex: ["ID", "Email", "Nom", "Abo"])
+    :param lignes: Liste de tuples/listes de données (provenant du fetchall de votre DB)
+    """
+    if not headers:
+        print("Aucune colonne à afficher.")
+        return
+
+    # 1. Calcul dynamique de la largeur max pour chaque colonne (minimum 10 caractères)
+    largeurs = [len(h) for h in headers]
+    for ligne in lignes:
+        for i, cellule in enumerate(ligne):
+            longueur_texte = len(str(cellule)) if cellule is not None else 4 # "None"
+            if longueur_texte > largeurs[i]:
+                largeurs[i] = longueur_texte
+                
+    # Ajoute une petite marge de sécurité de 2 espaces à chaque colonne
+    largeurs = [w + 2 for w in largeurs]
+
+    # 2. Construction de la ligne de séparation (ex: +------+---------------+---+)
+    separateur = "+" + "+".join("-" * w for w in largeurs) + "+"
+
+    # 3. Affichage des en-têtes
+    print(separateur)
+    ligne_entete = "|" + "|".join(f" {headers[i]:<{largeurs[i]-1}}" for i in range(len(headers))) + "|"
+    print(ligne_entete)
+    print(separateur)
+
+    # 4. Affichage des lignes de données
+    for ligne in lignes:
+        ligne_texte = "|"
+        for i, cellule in enumerate(ligne):
+            valeur = str(cellule) if cellule is not None else "NULL"
+            ligne_texte += f" {valeur:<{largeurs[i]-1}}|"
+        print(ligne_texte)
+
+    # 5. Fermeture du tableau
+    print(separateur)
     
 
 if __name__ == "__main__":
@@ -46,16 +89,9 @@ if __name__ == "__main__":
             
             match choice.lower():
                 case "1":
-                    print(f"{'ID':<20}{'Email':<40}{'Firstname':<20}{'Abonnement':<20}")
-                    print(f"="*100)
-                    headers = [("ID", 20), ("Email", 40), ("Firstname", 20), ("Abonnement", 20)]
-                    row_str = ""
-                    
-                    for user in get_users():
-                        for i,element in enumerate(user):
-                            print(f"{element:<{headers[i][1]}}", sep="", end="")
-                        print("\n")                
-                    print(row_str)
+                    colonnes_users = ["ID", "Email", "Firstname", "Abonnement"]
+                    donnee_users = get_users()
+                    afficher_table_generique(colonnes_users, donnee_users)                    
                     input(">")      
                 case "2":
                     email=input("Entrez l'email :")
@@ -67,8 +103,9 @@ if __name__ == "__main__":
                     
                 case "3":
                     print("-----------------------")
-                    for v in get_users():
-                        print(v)
+                    colonnes_users = ["ID", "Email", "Firstname", "Abonnement"]
+                    donnee_users = get_users()
+                    afficher_table_generique(colonnes_users, donnee_users)   
                     print("-----------------------")
                     id = input("Entrez l'id de l'utilisateur à supprimer : ")
                     rows_count = delete_user(id)
@@ -76,9 +113,9 @@ if __name__ == "__main__":
                     input(">")      
                     
                 case "4":
-                    for v in get_subscription():
-                        print(v)
-                    print("-----------------------")
+                    colonnes_subscription = ["ID", "Type", "Prix", "Durée (en semaines)"]
+                    donnee_subscription = get_subscription()
+                    afficher_table_generique(colonnes_subscription, donnee_subscription)                       
                     input(">")      
                 
                 case "5":
@@ -89,9 +126,9 @@ if __name__ == "__main__":
                     print(f"The new subscription has already been created {id}")              
                     input(">")  
                 case "6":
-                    print("-----------------------")
-                    for v in get_subscription():
-                        print(v)
+                    colonnes_subscription = ["ID", "Type", "Prix", "Durée (en semaines)"]
+                    donnee_subscription = get_subscription()
+                    afficher_table_generique(colonnes_subscription, donnee_subscription)                               
                     print("-----------------------")
                     id = input("Entrez l'id de la subscription à supprimer : ")
                     rows_count = delete_subscription(id)
@@ -99,9 +136,9 @@ if __name__ == "__main__":
                     input(">")
                     
                 case "7":
-                    for v in get_training():
-                        print(v)
-                    print("-----------------------")
+                    colonnes_training = ["ID", "description", "hour_start", "hour_end", "day", "user_id"]
+                    donnee_training = get_training()
+                    afficher_table_generique(colonnes_training, donnee_training)           
                     input(">")          
                     
                 case "8":
