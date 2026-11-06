@@ -76,20 +76,20 @@ INSERT INTO public.subscription (id, type, prix, duree) VALUES
 (5, 'eaezaez', '26.00'::numeric::money, 10);
 
 INSERT INTO public.users (id, email, last_name, role, abo) VALUES
-(1, 'alexis@supersport.com', 'Alexis', 'admin', 1),
-(2, 'tibo_in_shape@supersport.com', 'Tibo', 'user', 1),
-(3, 'damien_motive@supersport.com', 'Damien', 'user', 2),
-(4, 'amandine@supersport.com', 'Amandine', 'user', 3),
+(1, 'alexis@fitpulse.com', 'Alexis', 'admin', 1),
+(2, 'tibo_in_shape@fitpulse.com', 'Tibo', 'trainer', 1),
+(3, 'damien_motive@fitpulse.com', 'Damien', 'user', 2),
+(4, 'amandine@fitpulse.com', 'Amandine', 'user', 3),
 (5, 'alex.j@fitpulse.com', 'Johnson', 'trainer', 1),
 (6, 'sarah.c@fitpulse.com', 'Connor', 'trainer', 1),
 (7, 'david.b@fitpulse.com', 'Belle', 'trainer', 1),
 (8, 'emma.w@fitpulse.com', 'Watson', 'trainer', 1),
 (9, 'lucas.s@fitpulse.com', 'Scott', 'trainer', 1),
-(10, 'marc.durand@supersport.com', 'Marc', 'user', 2),
-(11, 'sophie.lefevre@supersport.com', 'Sophie', 'user', 1),
-(12, 'thomas.dubois@supersport.com', 'Thomas', 'user', 3),
-(13, 'julie.moreau@supersport.com', 'Julie', 'user', 2),
-(14, 'nicolas.roux@supersport.com', 'Nicolas', 'user', 1);
+(10, 'marc.durand@fitpulse.com', 'Marc', 'user', 2),
+(11, 'sophie.lefevre@fitpulse.com', 'Sophie', 'user', 1),
+(12, 'thomas.dubois@fitpulse.com', 'Thomas', 'user', 3),
+(13, 'julie.moreau@fitpulse.com', 'Julie', 'user', 2),
+(14, 'nicolas.roux@fitpulse.com', 'Nicolas', 'user', 1);
 
 INSERT INTO public.training (id, description, hour_start, hour_end, day, user_id) VALUES
 (1, 'HIIT Cardio', '12:00:00', '13:00:00', 1, 1),
@@ -113,16 +113,16 @@ INSERT INTO public.training (id, description, hour_start, hour_end, day, user_id
 
 -- Table: followcourse (10 Inscriptions générées)
 INSERT INTO public.followcourse (user_id, training_id) VALUES
-(2, 1),  -- Tibo suit le HIIT Cardio
-(2, 3),  -- Tibo suit le Spinning
-(3, 5),  -- Damien suit le Crossfit
-(4, 2),  -- Amandine suit le Power Yoga
-(10, 4), -- Marc suit le BodyPump
-(10, 8), -- Marc suit aussi le BodyCombat
-(11, 6), -- Sophie suit le Pilates
-(12, 1), -- Thomas suit le HIIT Cardio
-(13, 7), -- Julie suit la Zumba
-(14, 15);-- Nicolas suit le Sunday FullBody Workout
+(1, 3),   -- Alexis (admin) suit le Spinning
+(3, 1),   -- Damien (user) suit le HIIT Cardio
+(3, 5),   -- Damien (user) suit le Crossfit
+(4, 2),   -- Amandine (user) suit le Power Yoga
+(10, 4),  -- Marc (user) suit le BodyPump
+(10, 8),  -- Marc (user) suit le BodyCombat
+(11, 6),  -- Sophie (user) suit le Pilates
+(12, 1),  -- Thomas (user) suit le HIIT Cardio
+(13, 7),  -- Julie (user) suit la Zumba
+(14, 15); -- Nicolas (user) suit le Sunday FullBody Workout
 
 -- ============================================================================
 -- 4. SYNCHRONISATION DES COMPTEURS D'AUTO-INCREMENT (Séquences serial)
