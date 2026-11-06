@@ -4,7 +4,14 @@ from db.db import Database
 
 def get_followcourse():
         with Database().connection.cursor() as cursor:
-                cursor.execute("SELECT * FROM FOLLOWCOURSE")
+                cursor.execute("""
+                                SELECT u.last_name as "Nom",
+                                       t.description as "Cours suivi",
+                                       t.hour_start As "Début"
+                                       FROM followcourse fc
+                                       INNER JOIN users u ON fc.user_id = u.id
+                                       INNER JOIN training t ON fc.training_id = t.id                               
+                               """)
                 users = cursor.fetchall()
                 return users    
             
